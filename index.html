@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <script src="assets/jquery.min.js"></script>
+    <link rel="stylesheet" media="screen and (min-width: 601px)" href="assets/stylesheet.css">
+    <link rel="stylesheet" media="screen and (max-width: 600px)" href="assets/mobile.css">
+    <link rel="stylesheet" href="assets/all.css">
+    <script src="assets/words.js"></script>
+    <title>Binary Thing</title>
+</head>
+
+<body onload="on_load()">
+    <center>
+        <div class="container">
+            <em>
+                <p id="prompt">enter binary translation</p>
+            </em>
+            <input class="hidden" type="text" id="entry" pattern="\d*" inputmode="numeric" oninput="on_input()" onpaste="return false;"
+                autocomplete="off" value="" placeholder="start...">
+        </div>
+    </center>
+
+    <script>
+        var current_word = ""
+        function on_load() {
+            current_word = words[Math.floor((Math.random()*words.length))];
+            document.getElementById("prompt").innerHTML = "enter \"" + current_word + "\" in binary";
+        }
+
+        function on_input() {
+            var solution = current_word;
+            var solution_binary = "";
+            for (var i = 0; i < solution.length; i++) {
+                solution_binary += solution[i].charCodeAt(0).toString(2) + ((i != solution.length - 1) ? " " : "");
+            }
+
+            var input = document.getElementById("entry");
+
+            for (var ii = 0; ii < input.value.length; ii++)
+                if (solution_binary[ii] != input.value[ii])
+                    input.value = input.value.substr(0, input.value.length - 1);
+        }
+    </script>
+</body>
+
+</html>
